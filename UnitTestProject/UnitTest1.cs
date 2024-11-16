@@ -8,17 +8,38 @@ namespace UnitTestProject
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestCanFormat_ValidLength_ReturnsTrue()
         {
-            string result = FormatTextProgramm.FormatText(10, "Проверка");
+            bool result = FormatTextProgramm.CanFormat(10, "Hello");
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void TestCanFormat_InvalidLength_ReturnsFalse()
+        {
+            bool result = FormatTextProgramm.CanFormat(5, "Hello, World!");
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TestFormatLine_CorrectlyFormatsLine()
+        {
+            string result = FormatTextProgramm.FormatLine(10, "Hi");
+            Assert.AreEqual("   Hi    ", result); 
+        }
+
+        [TestMethod]
+        public void TestFormatLine_LongLine_ReturnsEmpty()
+        {
+            string result = FormatTextProgramm.FormatLine(10, "Hello, World!");
             Assert.AreEqual(string.Empty, result);
         }
 
         [TestMethod]
-        public void TestCanFormat()
+        public void TestFormatLine_OnlySpaces_ReturnsFormatted()
         {
-            bool result = FormatTextProgramm.CanFormat(10, "Проверка2");
-            Assert.IsTrue(result);
+            string result = FormatTextProgramm.FormatLine(6, "Hi");
+            Assert.AreEqual(" Hi   ", result); 
         }
     }
 }
